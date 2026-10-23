@@ -1,127 +1,120 @@
-# Student Management System
+# 🎓 Student Management System
 
-A complete web application built with **Python (Flask)**, **SQLite** and **Bootstrap 5**.
-Admins can manage students, subjects and marks, and the system automatically calculates
-totals, percentages, grades, pass/fail and class ranks.
+A web-based application developed using **Python, Flask, SQLite, and Bootstrap 5** to simplify student record management and academic performance tracking.
 
-## Features
+## 📌 Objective
 
-| Module | What it does |
-|---|---|
-| Login / Logout | Secure admin login (passwords are hashed), change-password page |
-| Dashboard | Student count, average score, pass rate, class topper, department chart, grade chart, top 5 |
-| Students | Add, view, edit, delete, search by name / roll number, filter by department |
-| Subjects | Add and delete subjects with their maximum marks |
-| Marks | Enter or update marks per student and subject (validated against maximum marks) |
-| Report card | Per-student marks, percentage, grade, rank (printable) |
-| Rank list | Sorted by percentage, ties share a rank, filter by department, export to CSV, print |
+To develop a user-friendly web application that helps administrators manage student details, subjects, and marks efficiently. The system automatically calculates total marks, percentages, grades, pass/fail status, and class ranks, reducing manual calculations and improving accuracy.
 
-**Grading rules:** A+ (90+), A (80+), B (70+), C (60+), D (50+), E (35+), F (fail).
-A student fails if any subject is below 35%.
+## 🛠 Tools & Technologies Used
 
-## Technologies
+- **Programming Language:** Python
+- **Backend Framework:** Flask
+- **Frontend:** HTML, CSS, Bootstrap 5, JavaScript
+- **Database:** SQLite
+- **Data Visualization:** Chart.js
+- **Development Environment:** Visual Studio Code
+- **Testing:** Python unittest
 
-- **Frontend:** HTML, CSS, Bootstrap 5, JavaScript, Chart.js (loaded from a CDN, so the browser needs internet)
-- **Backend:** Python 3 + Flask
-- **Database:** SQLite (a single file, `students.db`, created automatically)
+## 📂 Project Contents
 
-## How to run
+- 📄 `app.py` – Main Flask application with backend logic and routes
+- 🗃️ `schema.sql` – Database table definitions
+- 📊 `seed_demo.py` – Script to generate sample student data
+- 🧪 `test_app.py` – Automated test cases
+- 📋 `requirements.txt` – Required Python packages
+- 🎨 `static/style.css` – Custom styling
+- 📁 `templates/` – HTML templates for login, dashboard, students, subjects, marks, and reports
+
+## ✨ Key Features
+
+- **Admin Authentication:** Login, logout, and password management
+- **Dashboard:** Overview of student count, average scores, pass rate, and top performers
+- **Student Management:** Add, view, edit, delete, search, and filter student records
+- **Subject Management:** Create and manage subjects with maximum marks
+- **Marks Management:** Enter and update student marks with validation
+- **Automatic Grade Calculation:** Calculate grades and pass/fail status
+- **Report Cards:** View individual student marks, percentages, grades, and ranks
+- **Rank List:** Generate class rankings with department filters
+- **CSV Export:** Export rank lists for further analysis
+- **Responsive Interface:** User-friendly design using Bootstrap 5
+
+## 📈 Key Outcomes
+
+- Simplifies student record management
+- Reduces manual calculations and human errors
+- Provides faster access to academic performance details
+- Generates report cards and rank lists automatically
+- Improves the organization of student and subject information
+
+## 🗄️ Database Design
+
+The application uses SQLite with four main tables:
+
+- `students` – Stores student information
+- `subjects` – Stores subject details and maximum marks
+- `marks` – Stores student marks for each subject
+- `users` – Stores administrator login details securely
+
+The database uses primary keys, foreign keys, and constraints to maintain data consistency.
+
+## ▶️ How to Run the Project
 
 1. Install Python 3.9 or newer.
-2. Open a terminal in this folder and install Flask:
-   ```
+2. Clone or download this repository.
+3. Open the project folder in a terminal.
+4. Install the dependencies:
+
+   ```bash
    pip install -r requirements.txt
    ```
-3. (Optional) Add demo data: 12 students, 5 subjects and marks:
-   ```
+
+5. (Optional) Add sample data:
+
+   ```bash
    python seed_demo.py
    ```
-4. Start the website:
-   ```
+
+6. Start the application:
+
+   ```bash
    python app.py
    ```
-5. Open **http://127.0.0.1:5000** in your browser.
 
-**Default login:** username `admin`, password `admin123`. Change it from the *Account* page after logging in.
+7. Open the following URL in your browser:
 
-## Folder structure
+   `http://127.0.0.1:5000`
 
-```
-student_management/
-├── app.py              # Flask backend: routes, validation, grade and rank logic
-├── schema.sql          # Database tables
-├── seed_demo.py        # Optional demo data
-├── test_app.py         # Automated tests (python -m unittest -v)
-├── requirements.txt
-├── static/
-│   └── style.css       # Custom styling
-└── templates/          # HTML pages (Jinja2)
-    ├── base.html       # Common layout and navbar
-    ├── login.html
-    ├── dashboard.html
-    ├── students.html
-    ├── student_form.html    # Used for both Add and Edit
-    ├── student_detail.html  # Profile and report card
-    ├── subjects.html
-    ├── marks_form.html
-    ├── ranklist.html
-    ├── account.html
-    └── error.html
-```
+**Note:** If demo data is added, use the default credentials configured by the project. Change the default password before using the application beyond local testing.
 
-## Database design (ER diagram)
+## 🔐 Security Features
 
-```
- ┌──────────────┐            ┌──────────────┐            ┌──────────────┐
- │   students   │ 1        * │    marks     │ *        1 │   subjects   │
- ├──────────────┤────────────├──────────────┤────────────├──────────────┤
- │ id (PK)      │            │ id (PK)      │            │ id (PK)      │
- │ roll_no (UQ) │            │ student_id FK│            │ code (UQ)    │
- │ name         │            │ subject_id FK│            │ name         │
- │ department   │            │ marks        │            │ max_marks    │
- │ year         │            │ UNIQUE(student_id, subject_id)           │
- │ email, phone │            └──────────────┘            └──────────────┘
- │ created_at   │
- └──────────────┘            ┌──────────────┐
-                             │    users     │   (admin login, separate table)
-                             ├──────────────┤
-                             │ id (PK)      │
-                             │ username (UQ)│
-                             │ password_hash│
-                             └──────────────┘
-```
+- Password hashing for administrator credentials
+- CSRF protection for forms
+- Parameterized SQL queries to reduce SQL injection risks
+- Automatic HTML escaping to help prevent cross-site scripting
+- CSV export protection against spreadsheet formula injection
 
-One student has many marks (one per subject). One subject appears in many students' marks.
-Deleting a student or subject also deletes the related marks (`ON DELETE CASCADE`).
+## 🚀 Future Enhancements
 
-## Security built in
+- Student login and personal academic dashboard
+- Attendance management
+- Multiple semesters and examination records
+- PDF report card generation
+- Email notifications for academic updates
+- Deployment to a cloud hosting platform
 
-- Passwords stored as hashes, never as plain text
-- CSRF token on every form
-- SQL queries use parameters, which prevents SQL injection
-- Jinja2 escapes output automatically, which prevents XSS
-- CSV export guards against spreadsheet formula injection
+## 👩‍💻 Author
 
-## Run the tests
+**Sharu Latha**
 
-```
-python -m unittest -v
-```
+🎓 Computer Science Graduate
 
-## Ideas to extend
+💻 Interests: Python Development | Web Development | AI & Machine Learning
 
-- Attendance module (new `attendance` table)
-- Multiple semesters or exams (add an `exam` column to `marks`)
-- Student login to view their own marks
-- Switch SQLite to MySQL (change the connection code in `app.py`)
+🔗 [GitHub](https://github.com/sharu-196)  
+🔗 [LinkedIn](https://www.linkedin.com/in/sharu-latha19/)
 
-## Before putting it online
+---
 
-Set a long random secret key and turn off debug mode:
-
-```
-set SECRET_KEY=your-long-random-text        (Windows)
-export SECRET_KEY=your-long-random-text     (Mac / Linux)
-```
-
-and change `app.run(debug=True)` to `app.run(debug=False)` at the bottom of `app.py`.
+*This project was developed for learning and portfolio purposes to demonstrate skills in Python, Flask, database management, and web application development.*
