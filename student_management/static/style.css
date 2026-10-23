@@ -1,0 +1,93 @@
+/* Student Management System - custom styles (on top of Bootstrap 5) */
+:root {
+  --brand: #4f46e5;
+  --brand-dark: #3730a3;
+}
+
+body { background: #f4f6fb; }
+
+.app-navbar {
+  background: linear-gradient(90deg, var(--brand-dark), var(--brand));
+}
+.app-navbar .nav-link { opacity: .85; }
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active { opacity: 1; font-weight: 600; }
+
+.btn-primary { background: var(--brand); border-color: var(--brand); }
+.btn-primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+a { color: var(--brand); }
+
+.card { border: 0; border-radius: 14px; }
+.card-header { border-radius: 14px 14px 0 0 !important; }
+
+/* Login */
+.login-icon {
+  width: 64px; height: 64px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-size: 1.9rem; color: #fff;
+  background: linear-gradient(135deg, var(--brand), #06b6d4);
+}
+
+/* Dashboard stat cards */
+.stat-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px; border-radius: 14px; color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+}
+.stat-card > i { font-size: 2rem; opacity: .9; }
+.stat-value { font-size: 1.6rem; font-weight: 700; line-height: 1.1; }
+.stat-label { font-size: .85rem; opacity: .9; }
+.stat-blue   { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+.stat-purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+.stat-orange { background: linear-gradient(135deg, #f59e0b, #fb923c); }
+.stat-green  { background: linear-gradient(135deg, #059669, #10b981); }
+
+.topper-card { background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff; }
+.topper-icon {
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .25); font-size: 1.8rem;
+}
+
+/* Rank + grade badges */
+.rank-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; height: 32px; border-radius: 50%;
+  font-weight: 700; color: #fff;
+}
+.rank-1 { background: #f59e0b; }
+.rank-2 { background: #94a3b8; }
+.rank-3 { background: #b45309; }
+.rank-n { background: #e2e8f0; color: #334155; }
+
+.badge[class*="grade-"] { color: #fff; font-size: .8rem; min-width: 34px; }
+.grade-Ap { background: #059669; }
+.grade-A  { background: #10b981; }
+.grade-B  { background: #06b6d4; }
+.grade-C  { background: #4f46e5; }
+.grade-D  { background: #f59e0b; }
+.grade-E  { background: #fb923c; }
+.grade-F  { background: #ef4444; }
+
+/* Student detail */
+.avatar {
+  width: 84px; height: 84px; margin: 0 auto; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, var(--brand), #06b6d4);
+}
+.mini-stat {
+  background: #fff; border-radius: 12px; padding: 14px; text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+}
+.mini-value { font-size: 1.25rem; font-weight: 700; }
+.mini-label { font-size: .78rem; color: #64748b; }
+
+.table > :not(caption) > * > * { padding: .75rem .85rem; }
+
+/* Printing (rank list, report card) */
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+  .card { box-shadow: none !important; border: 1px solid #ddd; }
+}

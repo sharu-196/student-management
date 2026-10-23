@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Login - Student Management{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5 col-lg-4">
+    <div class="card login-card shadow-sm mt-4">
+      <div class="card-body p-4">
+        <div class="text-center mb-4">
+          <div class="login-icon"><i class="bi bi-mortarboard-fill"></i></div>
+          <h4 class="mt-2 mb-0">Student Management</h4>
+          <small class="text-muted">Admin login</small>
+        </div>
+        <form method="post" autocomplete="off">
+          <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required>
+          </div>
+          <button class="btn btn-primary w-100" type="submit">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </button>
+        </form>
+        <p class="text-muted small text-center mt-3 mb-0">
+          Default: <code>admin</code> / <code>admin123</code>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

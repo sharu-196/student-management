@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Enter Marks - Student Management{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white"><h4 class="mb-0"><i class="bi bi-pencil-square"></i> Enter / update marks</h4></div>
+      <div class="card-body">
+        {% if not students or not subjects %}
+          <div class="alert alert-warning mb-0">
+            You need at least one
+            <a href="{{ url_for('add_student') }}">student</a> and one
+            <a href="{{ url_for('subjects') }}">subject</a> before entering marks.
+          </div>
+        {% else %}
+        <form method="post">
+          <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+          <div class="mb-3">
+            <label class="form-label">Student *</label>
+            <select name="student_id" class="form-select" required>
+              <option value="">-- choose student --</option>
+              {% for s in students %}
+                <option value="{{ s.id }}" {{ 'selected' if selected == s.id }}>{{ s.roll_no }} - {{ s.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Subject *</label>
+            <select name="subject_id" id="subject" class="form-select" required>
+              <option value="">-- choose subject --</option>
+              {% for s in subjects %}
+                <option value="{{ s.id }}" data-max="{{ s.max_marks }}">{{ s.code }} - {{ s.name }} (max {{ s.max_marks }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Marks *</label>
+            <input type="number" name="marks" id="marks" class="form-control" min="0" required>
+            <div class="form-text">Saving again for the same student and subject updates the old marks.</div>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="bi bi-check-circle"></i> Save marks</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Limit the marks box to the chosen subject's maximum marks.
+  const subject = document.getElementById('subject');
+  const marks = document.getElementById('marks');
+  if (subject && marks) {
+    subject.addEventListener('change', () => {
+      const max = subject.selectedOptions[0].dataset.max;
+      if (max) { marks.max = max; marks.placeholder = '0 - ' + max; }
+    });
+  }
+</script>
+{% endblock %}
